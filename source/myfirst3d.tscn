@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://c0a6ayrml184f"]
+
+[ext_resource type="PackedScene" uid="uid://cdgi5na1l4py7" path="res://player.tscn" id="1_08hu7"]
+[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="3_3o4i3"]
+[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="4_0vfdr"]
+[ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="5_1h6fm"]
+[ext_resource type="PackedScene" uid="uid://bbu45qkcgyu5x" path="res://collisionhouse.tscn" id="6_3o4i3"]
+[ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="6_yyhi1"]
+[ext_resource type="PackedScene" uid="uid://ciampd713fabe" path="res://2_cartman_obj.tscn" id="7_1h6fm"]
+[ext_resource type="Script" uid="uid://djd00t1qimv77" path="res://movecartman.gd" id="8_yyhi1"]
+
+[sub_resource type="Sky" id="Sky_mciuk"]
+
+[sub_resource type="Environment" id="Environment_08hu7"]
+background_mode = 2
+background_energy_multiplier = 3.65
+sky = SubResource("Sky_mciuk")
+ambient_light_color = Color(0.2344636, 0.45442587, 0.9852126, 1)
+ambient_light_energy = 4.24
+reflected_light_source = 2
+fog_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7uedj"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3o4i3"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0vfdr"]
+noise = SubResource("FastNoiseLite_3o4i3")
+color_ramp = SubResource("Gradient_7uedj")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_1h6fm"]
+_shader_parameters = {
+&"bias_distance": null,
+&"blend_sharpness": null,
+&"depth_blur": null,
+&"enable_macro_variation": null,
+&"enable_projection": null,
+&"flat_terrain_normals": null,
+&"macro_variation1": null,
+&"macro_variation2": null,
+&"macro_variation_slope": null,
+&"mipmap_bias": null,
+&"noise1_angle": null,
+&"noise1_offset": null,
+&"noise1_scale": null,
+&"noise2_scale": null,
+&"noise_texture": SubResource("NoiseTexture2D_0vfdr"),
+&"projection_threshold": null
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyhi1"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_eefxx"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_yyhi1")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_eefxx"]
+name = ""
+albedo_texture = ExtResource("3_3o4i3")
+normal_texture = ExtResource("4_0vfdr")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_1o2iq"]
+name = ""
+id = 1
+albedo_texture = ExtResource("5_1h6fm")
+normal_texture = ExtResource("6_yyhi1")
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_cxha8"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_eefxx")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_eefxx"), SubResource("Terrain3DTextureAsset_1o2iq")])
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yge0y"]
+
+[node name="Node3D" type="Node3D" unique_id=1484485342]
+
+[node name="CharacterBody3D" parent="." unique_id=1136301426 instance=ExtResource("1_08hu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1937356, -0.2190814, -106.902)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1154427743]
+environment = SubResource("Environment_08hu7")
+
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=63719288]
+data_directory = "res://terrains"
+material = SubResource("Terrain3DMaterial_1h6fm")
+assets = SubResource("Terrain3DAssets_cxha8")
+collision_mode = 2
+physics_material = SubResource("PhysicsMaterial_yge0y")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="casa12" parent="." unique_id=1226173886 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(76.85165, 0, -64.7927, 0, 100.52, 0, 64.7927, 0, 76.85165, -15.7407055, -0.8296213, -204.74284)
+
+[node name="casa8" parent="." unique_id=1005971590 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -48.51423, -0.8296213, -164.27568)
+
+[node name="casa9" parent="." unique_id=353134798 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -37.559074, -0.8296213, -177.31555)
+
+[node name="casa10" parent="." unique_id=1070329842 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -26.386791, -0.8296213, -191.79121)
+
+[node name="casa13" parent="." unique_id=212385197 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-63.65369, 0, -77.79767, 0, 100.51999, 0, 77.79767, 0, -63.65369, 60.464474, -0.8296213, -168.5213)
+
+[node name="casa11" parent="." unique_id=1257082125 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.048832, 0, -79.08359, 0, 100.52003, 0, 79.08359, 0, -62.048832, 19.518967, -0.8296213, -200.69522)
+
+[node name="casa21" parent="." unique_id=1603912158 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.048832, 0, -79.08359, 0, 100.52003, 0, 79.08359, 0, -62.048832, 32.71879, -0.8296213, -189.93332)
+
+[node name="casa22" parent="." unique_id=2084275742 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.048832, 0, -79.08359, 0, 100.52003, 0, 79.08359, 0, -62.048832, 47.35744, -0.8296213, -178.97546)
+
+[node name="casa17" parent="." unique_id=1944664980 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(76.85165, 0, -64.7927, 0, 100.52, 0, 64.7927, 0, 76.85165, 4.7628536, -0.8296213, -189.28464)
+
+[node name="casa18" parent="." unique_id=1947457229 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -28.01067, -0.8296213, -148.81747)
+
+[node name="casa19" parent="." unique_id=1416324893 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -17.055515, -0.8296213, -161.85736)
+
+[node name="casa20" parent="." unique_id=427663775 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(78.161064, 0, -63.20695, 0, 100.52001, 0, 63.20695, 0, 78.161064, -5.883232, -0.8296213, -176.33301)
+
+[node name="casa14" parent="." unique_id=1464618583 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.709553, 0, -78.56069, 0, 100.52003, 0, 78.56069, 0, -62.709553, 26.80994, -0.8296213, -171.67653)
+
+[node name="casa15" parent="." unique_id=1757034466 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.709553, 0, -78.56069, 0, 100.52003, 0, 78.56069, 0, -62.709553, 39.919086, -0.8296213, -160.80437)
+
+[node name="casa16" parent="." unique_id=1679883998 instance=ExtResource("6_3o4i3")]
+transform = Transform3D(-62.709553, 0, -78.56069, 0, 100.52003, 0, 78.56069, 0, -62.709553, 54.465374, -0.8296213, -149.72418)
+
+[node name="2cartman_obj" parent="." unique_id=197564604 instance=ExtResource("7_1h6fm")]
+transform = Transform3D(0.034999996, 0, 0, 0, 0.034999993, 0, 0, 0, 0.034999996, 0, -1.7881393e-07, -158.75124)
+script = ExtResource("8_yyhi1")
+speed = 0.01
+
+[node name="AreaLight3D" type="AreaLight3D" parent="2cartman_obj" unique_id=1385037192]
+transform = Transform3D(28.57143, 0, 0, 0, 28.571434, 0, 0, 0, 28.57143, 0, 9.59606, 31.093018)

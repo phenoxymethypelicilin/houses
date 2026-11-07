@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b6btlcyx4xbtl"]
+
+[ext_resource type="PackedScene" uid="uid://dr1ceubfpt3o0" path="res://casa2.fbx" id="1_hfkix"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cxha8"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yge0y"]
+
+[node name="house" type="Node3D" unique_id=835823550]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
+
+[node name="casa2" parent="." unique_id=1226173886 instance=ExtResource("1_hfkix")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0.5423811, 0.34904486, -0.7308285)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1285158440]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 1.6221011, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_cxha8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1362139934]
+transform = Transform3D(0.053078294, 0, 0, 0, 0.29183882, 0, 0, 0, 0.17764781, 0.5910521, 0.3738384, -0.64553684)
+shape = SubResource("ConvexPolygonShape3D_yge0y")

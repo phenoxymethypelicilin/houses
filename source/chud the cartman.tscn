@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://850162uu7748"]
+
+[ext_resource type="PackedScene" uid="uid://dtyn02d4xh3lk" path="res://2cartman.obj.glb" id="1_1r06r"]
+
+[sub_resource type="Skin" id="Skin_cxha8"]
+
+[node name="2cartman_obj" unique_id=257463738 instance=ExtResource("1_1r06r")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+
+[node name="Asset3DLoader_sceneRoot" parent="." index="0" unique_id=335899426]
+skin = SubResource("Skin_cxha8")
